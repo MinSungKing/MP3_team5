@@ -1,0 +1,12 @@
+package com.example.jo930_000.albu;
+
+import android.app.Activity;
+import android.os.Bundle;
+
+public class Bye extends Activity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_bye);
+    }
+}

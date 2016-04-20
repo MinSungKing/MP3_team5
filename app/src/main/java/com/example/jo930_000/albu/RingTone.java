@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.IBinder;
+import android.os.Vibrator;
 import android.util.Log;
 
 import java.util.Random;
@@ -22,6 +23,8 @@ public class RingTone extends Service {
     private Context context;
     MediaPlayer mMediaPlayer;
     private int startId;
+
+    Vibrator vibrator;
 
     @Override
     public IBinder onBind(Intent intent)
@@ -96,7 +99,12 @@ public class RingTone extends Service {
             }
             //mMediaPlayer = MediaPlayer.create(this, R.raw.richard_dawkins_1);
 
-            mMediaPlayer.start();
+            //mMediaPlayer.start();
+
+            long[] pattern = {50, 100, 100, 200, 100, 300};
+
+            vibrator = (Vibrator)this.getSystemService(Context.VIBRATOR_SERVICE);
+            vibrator.vibrate(pattern, 1);
 
 
             mNM.notify(0, mNotify);
@@ -125,8 +133,10 @@ public class RingTone extends Service {
         else {
             Log.e("if there is sound ", " and you want end");
 
-            mMediaPlayer.stop();
-            mMediaPlayer.reset();
+            //mMediaPlayer.stop();
+            //mMediaPlayer.reset();
+            vibrator.cancel();
+
 
             this.isRunning = false;
             this.startId = 0;

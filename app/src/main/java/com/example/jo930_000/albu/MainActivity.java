@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private AlarmReceiver alarm;
     private Context context;
 
+    Intent intent;
+
     @TargetApi(Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
                 calendar.set(Calendar.HOUR_OF_DAY, alarmTimePicker.getCurrentHour());
                 calendar.set(Calendar.MINUTE, alarmTimePicker.getCurrentMinute());
+                calendar.set(Calendar.SECOND, 0);
 
                 final int hour = alarmTimePicker.getCurrentHour();
                 final int minute = alarmTimePicker.getCurrentMinute();
@@ -94,6 +97,9 @@ public class MainActivity extends AppCompatActivity {
         stop_alarm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                intent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
 
 
                 int min = 1;
@@ -156,5 +162,4 @@ public class MainActivity extends AppCompatActivity {
 
         Log.e("MyActivity", "on Destroy");
     }
-
 }
