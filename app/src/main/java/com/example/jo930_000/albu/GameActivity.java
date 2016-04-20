@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class GameActivity extends AppCompatActivity {
     BackThread backThread;
 
     int timeLimit;
+    boolean success = false;
 
 
 
@@ -51,16 +53,9 @@ public class GameActivity extends AppCompatActivity {
         mHandler = new Handler();
         backThread = new BackThread();
         backThread.start();
-
-        /*
-        SystemClock.sleep(10000);
-        Intent i = new Intent();
-        setResult(1,i);
-        finish();
-        */
     }
 
-    private boolean GameSuccess(){
+    private boolean GameSuccess() {
 
         return false;
     }
@@ -106,14 +101,16 @@ public class GameActivity extends AppCompatActivity {
                         v.setBackgroundResource(R.drawable.clicked);
                         count++;
                     }
-
                 }
             });
 
             if (count == 11) {
+                success = true;
+                backThread.interrupt();
                 intent = new Intent(context, Bye.class);
                 context.startActivity(intent);
                 finish();
+
             }
             return convertView;
         }
@@ -121,9 +118,12 @@ public class GameActivity extends AppCompatActivity {
 
     private class BackThread extends Thread {
         Intent intent;
+
         public void run() {
+            Log.d("설마", "얘가 실행되는건가ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+
             super.run();
-            while(true) {
+            while (!success) {
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -132,14 +132,14 @@ public class GameActivity extends AppCompatActivity {
                 mHandler.post(new Runnable() {
                     public void run() {
                         timeLimit--;
-                        countDown.setText(""+timeLimit);
+                        countDown.setText("" + timeLimit);
                     }
                 });
+                if (timeLimit == 0) {
+                    success = true;
+                }
 
-                if(timeLimit == 0)
-                    break;
             }
-
             intent = new Intent(getApplicationContext(), ReadyForGameActivity.class);
             startActivity(intent);
             finish();

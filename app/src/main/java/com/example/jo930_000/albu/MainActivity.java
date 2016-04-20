@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 intent = new Intent(getApplicationContext(), ReadyForGameActivity.class);
                 startActivity(intent);
 
+                
 
                 int min = 1;
                 int max = 9;
