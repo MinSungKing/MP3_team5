@@ -40,7 +40,7 @@ public class GameActivity extends AppCompatActivity {
         game = new Game();
         game.generateRandomNumber(this.randomNum);
 
-        timeLimit = 8;
+        timeLimit = 10;
 
         gameCardView = (GridView) findViewById(R.id.gameboard);
         countDown = (TextView) findViewById(R.id.countdown);
