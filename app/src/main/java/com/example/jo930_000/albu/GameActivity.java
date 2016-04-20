@@ -113,6 +113,7 @@ public class GameActivity extends AppCompatActivity {
             if (count == 11) {
                 intent = new Intent(context, Bye.class);
                 context.startActivity(intent);
+                finish();
             }
             return convertView;
         }
@@ -139,8 +140,9 @@ public class GameActivity extends AppCompatActivity {
                     break;
             }
 
-            //intent = new Intent(getApplicationContext(), AlarmSound.class);
-            //startActivity(intent);
+            intent = new Intent(getApplicationContext(), ReadyForGameActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 }
